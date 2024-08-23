@@ -39,6 +39,7 @@
             lblDisplay.Size = new Size(112, 30);
             lblDisplay.TabIndex = 0;
             lblDisplay.Text = "label1";
+            lblDisplay.Click += lblDisplay_Click;
             // 
             // Form1
             // 

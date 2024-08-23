@@ -10,9 +10,9 @@ namespace GADE___1B___Part_1
     internal class GameEngine
     {
         //Declare the attributes
-        private List<int> currentLvl;//Stores the user's Current level
-        private int lvlNumbers;//Stores the number of levels the game consists of
-        private Random randomValue;//Stores the random value that is within the constants ranges
+        private readonly List<int> currentLvl;//Stores the user's Current level
+        private readonly int lvlNumbers;//Stores the number of levels the game consists of
+        private readonly int randomValue;//Stores the random value that is within the constants ranges
         public const int MIN_SIZE = 10;
         public const int MAX_SIZE = 20;
         
@@ -22,13 +22,14 @@ namespace GADE___1B___Part_1
             //Assign the gamelevels to a filed
             lvlNumbers = gameLvls;
             //Create an object for the current level field 
-            currentLvl = new List<int>();
+            currentLvl = [];
         }
         //
         public int GenerateValues()
         {
-            randomValue = new Random();
-            return randomValue.Next(MIN_SIZE, MAX_SIZE);
+            //Set a number generator that will return a value between the constants
+            Random randomValue = new Random();
+            return randomValue.Next(MIN_SIZE, MAX_SIZE);//The function will return the constants
         }
         public override string ToString()
         {

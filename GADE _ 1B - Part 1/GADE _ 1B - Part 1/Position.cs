@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace GADE___1B___Part_1
 {
- 
     internal class Position : Tile
     {
         private int _xValues;//Carrying the x-coodinates
@@ -28,15 +27,19 @@ namespace GADE___1B___Part_1
         //Set the overide methods to all for the child classes to gve information, which is displaying the coordinates
         public override char Display => '.';
 
-        public override void X_Coordinate()
+        public override int X_Coordinate()
         {
             //Display the X-Coordinate
             Console.WriteLine(_xValues);
+
+            return _xValues;
         }
-        public override void Y_Coordinate()
+        public override int Y_Coordinate()
         {
             //Display the Y-Coordinate
             Console.WriteLine(_yValues);
+
+            return _yValues;
         }
     }
 }

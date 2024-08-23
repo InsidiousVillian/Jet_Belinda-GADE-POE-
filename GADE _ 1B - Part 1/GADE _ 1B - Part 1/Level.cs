@@ -14,15 +14,17 @@ namespace GADE___1B___Part_1
             Empty
         }
 
-        private EmptyTile[,] tiles;
         private int width;
         private int height;
+        private EmptyTile[,] tiles;
 
         // Constructor
         public Level(int width, int height)
         {
+            //Initialize the width and the height to the fields
             this.width = width;
             this.height = height;
+            //Initialize the 2D array to the fileds
             tiles = new EmptyTile[width, height];
 
             // Initialize tiles method called inside levels constructor
@@ -75,21 +77,25 @@ namespace GADE___1B___Part_1
             }
         }
 
+        private EmptyTile[,] GetTiles()
+        {
+            return tiles;
+        }
+
         // Private method to create a tile based on TileType and position
-        private EmptyTile CreateTile(TileType tileType, Position position)
+        private EmptyTile CreateTile(TileType tileType, Position position, EmptyTile[,] tiles)
         {
             EmptyTile tile;
             switch (tileType)
             {
                 case TileType.Empty:
-                    tile = new EmptyTile(position.XValues, position.YValues); // Uses the constructor correctly
+                    tile = new Emptytile(position.XValues, position.YValues); // Uses the constructor correctly
                     break;
                 // Future tile types will be handled here
                 default:
                     throw new ArgumentException("Unsupported TileType");
             }
 
-            // Place tile in the array
             tiles[position.XValues, position.YValues] = tile;
 
             return tile;
@@ -99,7 +105,7 @@ namespace GADE___1B___Part_1
         private EmptyTile CreateTile(TileType tileType, int x, int y)
         {
             Position position = new Position(x, y);
-            return CreateTile(tileType, position);
+            return CreateTile(tileType, position, GetTiles());
         }
 
         // Helper function to check if position is valid
@@ -125,18 +131,7 @@ namespace GADE___1B___Part_1
             return levelRepresentation.ToString();
         }
     }
-
-    // Position class to hold tile coordinates
-    /*public class Position
-    {
-        public int X { get; }
-        public int Y { get; }
-
-        public Position(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-    }*/
 }
+//int gameLvls = 0;
+//GameEngine gameEngine = new GameEngine(gameLvls);
+//gameEngine.ToString();

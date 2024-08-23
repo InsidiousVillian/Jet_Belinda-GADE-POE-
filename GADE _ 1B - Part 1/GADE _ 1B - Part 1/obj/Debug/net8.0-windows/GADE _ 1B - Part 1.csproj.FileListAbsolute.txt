@@ -1,0 +1,6 @@
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE___1B___Part_1.Form1.resources
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE _ 1B - Part 1.csproj.GenerateResource.cache
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE _ 1B - Part 1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE _ 1B - Part 1.AssemblyInfoInputs.cache
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE _ 1B - Part 1.AssemblyInfo.cs
+C:\Users\belin\source\repos\GADE _ 1B - Part 1\GADE _ 1B - Part 1\obj\Debug\net8.0-windows\GADE _ 1B - Part 1.csproj.CoreCompileInputs.cache
