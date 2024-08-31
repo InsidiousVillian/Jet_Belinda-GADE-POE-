@@ -1,42 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE___1B___Part_1
+namespace Fixed_version_GADE_most_recent
 {
- 
-    internal class Position : Tile
+    internal class Position 
     {
-        private int _xValues;//Carrying the x-coodinates
-        private int _yValues;//Carrying the y-coordinates;
-        private static int parameterPosition;
+        private int _xCoordinate;//Carrying the x-coodinates
+        private int _yCoordinate;//Carrying the y-coordinates;
 
         //Create properties that will set and return the fields back to the user
-        public int XValues { get; set; }
-        public int YValues { get; set; }
+        public int XCoordinate { get { return _xCoordinate; } }
+        public int YCoordinate { get { return _yCoordinate; } }
 
-        public Position(int userXValue, int userYValue) : base(userXValue + userYValue)
+        public Position(int xValue, int yValue)
         {
             //Set the arguments to the corresponding fields
-            _xValues = userXValue;
-            _yValues = userYValue;
-            
-        }
-        //Set the overide methods to all for the child classes to gve information, which is displaying the coordinates
-        public override char Display => '.';
-
-        public override void X_Coordinate()
-        {
-            //Display the X-Coordinate
-            Console.WriteLine(_xValues);
-        }
-        public override void Y_Coordinate()
-        {
-            //Display the Y-Coordinate
-            Console.WriteLine(_yValues);
+            _xCoordinate = xValue;
+            _yCoordinate = yValue;
         }
     }
+
+    
 }

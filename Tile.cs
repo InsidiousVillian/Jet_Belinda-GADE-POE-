@@ -4,40 +4,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE___1B___Part_1
+namespace Fixed_version_GADE_most_recent
 {
     internal abstract class Tile
     {
         //Instatiate a field
-        public int typePosition;
+        private int typePosition;
+        private Position Position;
 
         //Set Properties that will display the coordinates and each tile as a character
-        public abstract void X_Coordinate();
-        public abstract void Y_Coordinate();
+        public int XCoordinate { get; set; }
+        public int YCoordinate { get; set; }
         public abstract char Display { get; }
 
         //Set a constructor that accepts a parameter and assigns it tot the position class field
-        protected Tile(int positionType)
+        public Tile(int positionType, Position position)
         {
             //Assign the argument to the field
             typePosition = positionType;
+            this.Position = position;
         }
     }
     //Create a new class
-    public class EmptyTile : Tile
+    internal class EmptyTile : Tile
     {
-        public int parameterPosition;
-
         //Set a constructor that will use the argument PositionParameter
-        public EmptyTile(int positionParameter ) : base(positionParameter)
+        public EmptyTile(Position position) : base(0, position)
         {
-            parameterPosition = positionParameter;
-        }
-        public override char Display
-        {
-            get { return '.'; }
-           
-        }
 
+        }
+        //Returns the x and y coordinate and a dot
+        public override char Display => '.';
+    }
+    //Create a new class extending Tile class
+    internal class WallTile : Tile//Inherit from tile class
+    {
+        //Initialize a constructor
+        public WallTile(Position position) : base(0, position)//Pass the parameter to the base constructor
+        {
+
+        }
+        public override char Display => '#';//Override the display property to showcase the wall character
     }
 }
+
+

@@ -1,4 +1,7 @@
-namespace GADE___1B___Part_1
+﻿using System;
+using System.Windows.Forms;
+
+namespace Fixed_version_GADE_most_recent
 {
     public partial class Form1 : Form
     {
@@ -7,29 +10,45 @@ namespace GADE___1B___Part_1
         {
             InitializeComponent();
             int gameLvls = 10;
-            GameEngine engine = new GameEngine(gameLvls);
+            //Initialize the instance varivble 
+            engine = new GameEngine(gameLvls);
+
+            //Call the method to hold the function to display
+            UpdateDisplay();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int userXValue = 0;
-            int userYValue = 0;
-            int positionParameter = 0;
-            Position position = new Position(userXValue, userYValue);
-            position.X_Coordinate();
-            position.Y_Coordinate();
-            EmptyTile emptyTile = new EmptyTile(positionParameter);
-            //emptyTile.Display();
+            //Initialize the variables that would be used for the tile of the game
+            int xValue = 12;
+            int yValue = 8;
+            //int positionParameter = 0;
+            //int xCoordinate = 12;
+            //int yCoordinate = 8;
+            int gameLvls = 10;
 
-            //int gameLvls = 0;
-            //GameEngine gameEngine = new GameEngine(gameLvls);
-            //gameEngine.ToString();
+            //Initialiaze the position object 
+            Position position = new(xValue, yValue);
+
+            //Initialize the emptyTile object
+            //EmptyTile emptyTile;
+
+            //Initialize the object
+            //WallTile wallTile = new(positionParameter, xCoordinate, yCoordinate);
+
+            GameEngine gameEngine = new GameEngine(gameLvls);
+
         }
         public void UpdateDisplay()
         {
-            //engine = ToString(lblDisplay);
+            //Set the label to a string message
+            lblDisplay.Text = engine.ToString();
+        }
 
+        private void lblDisplay_Click(object sender, EventArgs e)
+        {
+            //Call the method to hold the function to display
+            //UpdateDisplay();
         }
     }
-
 }
