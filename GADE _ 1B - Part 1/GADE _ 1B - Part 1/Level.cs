@@ -8,130 +8,94 @@ namespace GADE___1B___Part_1
 {
     internal class Level
     {
-        // Enum declaration
-        public enum TileType
-        {
-            Empty
-        }
+        //private fields 
+        private Tile[,] _tiles; //2D array of type Tile
+        private int _width; //stores width 
+        private int _height;  //stores height 
 
-        private int width;
-        private int height;
-        private EmptyTile[,] tiles;
-
-        // Constructor
+        
+        //constructor  which holds interger paramters for height and width 
         public Level(int width, int height)
         {
-            //Initialize the width and the height to the fields
-            this.width = width;
-            this.height = height;
-            //Initialize the 2D array to the fileds
-            tiles = new EmptyTile[width, height];
-
-            // Initialize tiles method called inside levels constructor
-            initialiseTiles();
+            _width = width; //initialises width
+            _height = height; //initialises height
+            _tiles = new Tile[width, height]; //initialises 2D tile arrayusing the width and height values as the arrays dimensions
+            InitialiseTiles(); // Call the new method right after initializing the array                            
         }
 
-        // Properties to expose width and height
-        public int Width
+        //sets all the tiles in the 2D Tile array to EmptyTiles using the CreateTiule method.
+        public void InitialiseTiles()
         {
-            get { return width; }
-        }
-
-        public int Height
-        {
-            get { return height; }
-        }
-
-        // Get a tile at a specific position
-        public EmptyTile GetTile(int x, int y)
-        {
-            if (IsValidPosition(x, y))
+            // loop used to iterates over the x axis of the grid, starting from 0 up to _width - 1.
+            for (int x = 0; x < _width; x++)
             {
-                return tiles[x, y];
-            }
-            throw new ArgumentOutOfRangeException("Position out of bounds");
-        }
-
-        // Set a tile at a specific position
-        public void SetTile(int x, int y, EmptyTile tile)
-        {
-            if (IsValidPosition(x, y))
-            {
-                tiles[x, y] = tile;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Position out of bounds");
-            }
-        }
-
-        // Loops through the entire 2D array and sets each tile to an EmptyTile using the CreateTile method.
-        private void initialiseTiles()
-        {
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
+                //nested loop used to iterates over the y axis of the grid, starting from 0 up to _height - 1.
+                for (int y = 0; y < _height; y++)
                 {
-                    CreateTile(TileType.Empty, x, y); // Create and place an EmptyTile
+                    // Create an empty tile at the current position
+                    CreateTile(TileType.Empty, x, y); //error was here. dont know how to fix 
                 }
             }
         }
 
-        private EmptyTile[,] GetTiles()
+        //enum named TileType 
+        public enum TileType
         {
-            return tiles;
+            Empty // single value named Empty 
+            // More types will be added here as we extend the Level class according to assignment brief 
         }
 
-        // Private method to create a tile based on TileType and position
-        private EmptyTile CreateTile(TileType tileType, Position position, EmptyTile[,] tiles)
+        public Tile CreateTile(TileType tileType, Position position)
         {
-            EmptyTile tile;
+            /*
+            // if statement used to check if position is value, this brings in the IsValidPosition method
+            if (!IsValidPosition(position.xValue, position.yValue))
+            {
+                return null; // Return null for invalid positions
+            }
+            */
+
+
+            Tile newTile;
+
             switch (tileType)
             {
                 case TileType.Empty:
-                    tile = new Emptytile(position.XValues, position.YValues); // Uses the constructor correctly
+                    newTile = new EmptyTile(position);
                     break;
-                // Future tile types will be handled here
+                // More cases will be added here as we extend the Level class
                 default:
-                    throw new ArgumentException("Unsupported TileType");
+                    return null; // Returns null for invalid tile types
             }
 
-            tiles[position.XValues, position.YValues] = tile;
+            //_tiles[position.xValue, position.yValue] = newTile;
 
-            return tile;
+            return newTile;
         }
-
-        // Overloaded CreateTile method for convenience
-        private EmptyTile CreateTile(TileType tileType, int x, int y)
+        private Tile CreateTile(TileType tileType, int x, int y)
         {
             Position position = new Position(x, y);
-            return CreateTile(tileType, position, GetTiles());
+            return CreateTile(tileType, position);
         }
 
-        // Helper function to check if position is valid
-        private bool IsValidPosition(int x, int y)
-        {
-            return x >= 0 && x < width && y >= 0 && y < height;
-        }
+        // Method to check if a tile creation was successful
+        
 
-        // Override ToString method to represent the level visually
+        //provides a string representation of the entire level 
         public override string ToString()
         {
-            StringBuilder levelRepresentation = new StringBuilder();
+            StringBuilder levelString = new StringBuilder();
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < _height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < _width; x++)
                 {
-                    levelRepresentation.Append(tiles[x, y].Display); // Accesses the DisplayCharacter property
+                    levelString.Append(_tiles[x, y]?.Display ?? '.');
                 }
-                levelRepresentation.Append("\n"); // using /n a New line after each row is added to te string everytime row ends
+                levelString.Append('\n'); // Add new line at the end of each row
             }
 
-            return levelRepresentation.ToString();
+            return levelString.ToString();
         }
     }
 }
-//int gameLvls = 0;
-//GameEngine gameEngine = new GameEngine(gameLvls);
-//gameEngine.ToString();

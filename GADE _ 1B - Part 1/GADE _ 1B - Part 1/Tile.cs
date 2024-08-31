@@ -9,55 +9,64 @@ namespace GADE___1B___Part_1
     internal abstract class Tile
     {
         //Instatiate a field
-        public int typePosition { get; private set; }
+        private int typePosition;
+        private Position Position;
 
         //Set Properties that will display the coordinates and each tile as a character
-        public abstract int X_Coordinate();
-        public abstract int Y_Coordinate();
+        public int XCoordinate { get; set; }
+        public int YCoordinate { get; set; }
         public abstract char Display { get; }
 
         //Set a constructor that accepts a parameter and assigns it tot the position class field
-        protected Tile(int positionType)
+        public Tile(int positionType, Position position)
         {
             //Assign the argument to the field
             typePosition = positionType;
+            this.Position = position;
         }
     }
     //Create a new class
     internal class EmptyTile : Tile
     {
-        public int parameterPosition;
-        private readonly int _yCoordinate;
-        private readonly int _xCoordinate;
-
         //Set a constructor that will use the argument PositionParameter
-        public EmptyTile(int positionParameter, int xCoordinate, int yCoordinate) : base(positionParameter)
+        public EmptyTile(Position position) : base(0 , position)
         {
-            //Initializes the x Coordinate and the y Coordinate field
-            parameterPosition = positionParameter;
-            _xCoordinate = xCoordinate;
-            _yCoordinate = yCoordinate;
+
         }
         //Returns the x and y coordinate and a dot
-        public override int X_Coordinate() => _xCoordinate;
-        public override int Y_Coordinate() => _yCoordinate;
         public override char Display => '.';
     }
     //Create a new class extending Tile class
     internal class WallTile : Tile//Inherit from tile class
     {
-        //Initialze the filed that will correlate with the Tile class
-        private readonly int _xCoordinate;
-        private readonly int _yCoordinate;
         //Initialize a constructor
-        public WallTile(int positionParameter, int xCoordinate, int yCoordinate) : base(positionParameter)//Pass the parameter to the base constructor
+        public WallTile(Position position) : base(0, position)//Pass the parameter to the base constructor
         {
-            _xCoordinate = xCoordinate;
-            _yCoordinate = yCoordinate;
+
         }
-        public override int X_Coordinate() => _xCoordinate;
-        public override int Y_Coordinate() => _yCoordinate;
         public override char Display => '#';//Override the display property to showcase the wall character
+    }
+    internal abstract class CharacterTile : Tile
+    {
+        //Declare the attributes
+        private int _hitPoints;
+        private int _hitPointsMax;
+        private int _attackPower;
+
+        public Tile[,] charVision;
+
+        public CharacterTile(Position position, int hitDamage, int attackLevel) : base(0, position)
+        {
+            _hitPoints = hitDamage;
+            _hitPointsMax = hitDamage;
+            _attackPower = attackLevel;
+
+            charVision = new Tile[4, 4];
+        }
+        public void UpdateVision(Level level)
+        {
+            
+        }
     }
 }
 
