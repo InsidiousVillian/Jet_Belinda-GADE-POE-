@@ -8,13 +8,11 @@ namespace GADE___1B___Part_1
 {
     internal class Level
     {
-        //private fields 
-        private Tile[,] _tiles; //2D array of type Tile
-        private int _width; //stores width 
-        private int _height;  //stores height 
-
-        
-        //constructor  which holds interger paramters for height and width 
+        //Initialize properties
+        public int _width { get; set; }//2D array of type Tile
+        public int _height {  get; set; }//stores width
+        public Tile[,] _tiles {  get; set; }//stores height
+                                            //constructor  which holds interger paramters for height and width
         public Level(int width, int height)
         {
             _width = width; //initialises width
@@ -27,48 +25,48 @@ namespace GADE___1B___Part_1
         public void InitialiseTiles()
         {
             // loop used to iterates over the x axis of the grid, starting from 0 up to _width - 1.
-            for (int x = 0; x < _width; x++)
+            for (int y = 0; y < _height; y++)
             {
                 //nested loop used to iterates over the y axis of the grid, starting from 0 up to _height - 1.
-                for (int y = 0; y < _height; y++)
+                for (int x = 0; x < _width; x++)
                 {
+                    Position position = new Position(x, y);
                     // Create an empty tile at the current position
-                    CreateTile(TileType.Empty, x, y); //error was here. dont know how to fix 
+                    CreateTile(TileType.Empty, x, y); //error was here. dont know how to fix
+
+                    if (x == _width - 1 || y == _height - 1 || x == 0 || y == 0)
+                    {
+                        _tiles[x, y] = CreateTile(TileType.Wall, position);
+                    }
+                    else
+                    {
+                        _tiles[x, y] = CreateTile(TileType.Empty, position);
+                    }
                 }
             }
         }
 
-        //enum named TileType 
+        //enum named TileType
         public enum TileType
         {
-            Empty // single value named Empty 
-            // More types will be added here as we extend the Level class according to assignment brief 
+            Empty, // single value named Empty
+            Wall   // More types will be added here as we extend the Level class according to assignment brief
         }
-
         public Tile CreateTile(TileType tileType, Position position)
         {
-            /*
-            // if statement used to check if position is value, this brings in the IsValidPosition method
-            if (!IsValidPosition(position.xValue, position.yValue))
-            {
-                return null; // Return null for invalid positions
-            }
-            */
-
-
             Tile newTile;
 
             switch (tileType)
             {
-                case TileType.Empty:
-                    newTile = new EmptyTile(position);
+                case TileType.Wall:
+                    newTile = new WallTile(position);
                     break;
                 // More cases will be added here as we extend the Level class
                 default:
-                    return null; // Returns null for invalid tile types
+                    newTile = new EmptyTile(position);
+                    break;  // Returns null for invalid tile types
             }
-
-            //_tiles[position.xValue, position.yValue] = newTile;
+            _tiles[position.YCoordinate, position.XCoordinate] = newTile;
 
             return newTile;
         }
@@ -77,25 +75,41 @@ namespace GADE___1B___Part_1
             Position position = new Position(x, y);
             return CreateTile(tileType, position);
         }
-
         // Method to check if a tile creation was successful
-        
-
-        //provides a string representation of the entire level 
+        //provides a string representation of the entire level
         public override string ToString()
         {
             StringBuilder levelString = new StringBuilder();
-
+            string AcculateVisuals = "";
             for (int y = 0; y < _height; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    levelString.Append(_tiles[x, y]?.Display ?? '.');
+                    AcculateVisuals = AcculateVisuals + _tiles[x, y].Display;
                 }
-                levelString.Append('\n'); // Add new line at the end of each row
+                AcculateVisuals = AcculateVisuals + "\n"; // Add new line at the end of each row
             }
+            return AcculateVisuals;
+        }
+        public void SwopTiles(Tile tileOne, Tile tileTwo)
+        {
+            //Set properties to swap the actual tiles by updating the tile references in the _tiles array
+            _tiles[tileOne.XCoordinate, tileOne.YCoordinate] = tileOne;
+            _tiles[tileTwo.XCoordinate, tileTwo.YCoordinate] = tileTwo;
 
-            return levelString.ToString();
+            //Updating function that will swap the positions of the two tiles using the Position property
+            Position tempPosition = tileOne.Position;
+            tileOne.Position = tileTwo.Position;
+            tileTwo.Position = tempPosition;
+        }
+        public enum Direction
+        {
+            //Set the directions for the character's movement
+            Up = 0,
+            Right = 1,
+            Down = 2,
+            Left = 3,
+            None = 4
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static GADE___1B___Part_1.Level;
+using static GADE___1B___Part_1.Tile;
 
 namespace GADE___1B___Part_1
 {
@@ -15,6 +17,7 @@ namespace GADE___1B___Part_1
         //private readonly int randomValue;//Stores the random value that is within the constants ranges
         private const int MIN_SIZE = 10;
         private const int MAX_SIZE = 20;
+        private CharacterTile hero; // Assume this represents the hero character
 
         //Set a number generator that will return a value between the constants
         private Random randomValue = new Random();
@@ -31,8 +34,28 @@ namespace GADE___1B___Part_1
         }
         public override string ToString()
         {
-            //Using a format to all for the value to be a readble string
+            //Using a format to all for the value to be a readable string
             return currentLvl.ToString();
+        }
+        private bool MoveHero(Level.Direction direction)
+        {
+            // Cast the direction enum to an integer to use as an index for the vision array
+            int directionIndex = (int)direction;
+
+            // Check the target tile in the hero's vision array based on the desired direction
+            Tile targetTile = hero.charVision[directionIndex];
+
+            // Check if the target tile is an instance of EmptyTile
+            if (targetTile is EmptyTile)
+            {
+                // Move is successful, return true
+                return true;
+            }
+            else
+            {
+                // Move failed, return false
+                return false;
+            }
         }
     }
 }

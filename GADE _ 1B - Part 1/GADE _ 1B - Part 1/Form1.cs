@@ -16,27 +16,8 @@ namespace GADE___1B___Part_1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Initialize the variables that would be used for the tile of the game
-            int xValue = 12;
-            int yValue = 8;
-            //int positionParameter = 0;
-            //int xCoordinate = 12;
-            //int yCoordinate = 8;
             int gameLvls = 10;
-
-            //Initialiaze the position object 
-            Position position = new(xValue, yValue);
-            //position.XCoordinate = tile.;
-
-            //Initialize the emptyTile object
-            //EmptyTile emptyTile;
-
-            //Initialize the object
-            //WallTile wallTile = new();
-
             GameEngine gameEngine = new GameEngine(gameLvls);
-
-
 
         }
         public void UpdateDisplay()
