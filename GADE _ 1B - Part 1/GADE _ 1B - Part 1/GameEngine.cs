@@ -14,10 +14,11 @@ namespace GADE___1B___Part_1
         //Declare the attributes
         private Level currentLvl;//Stores the user's Current level
         private int lvlNumbers;//Stores the number of levels the game consists of
-        //private readonly int randomValue;//Stores the random value that is within the constants ranges
+        private int totalLvls;
         private const int MIN_SIZE = 10;
         private const int MAX_SIZE = 20;
-        private CharacterTile hero; // Assume this represents the hero character
+        
+        private GameState gameState = GameState.InProgress;
 
         //Set a number generator that will return a value between the constants
         private Random randomValue = new Random();
@@ -32,20 +33,32 @@ namespace GADE___1B___Part_1
             //Create an object for the current level field 
             currentLvl = new Level(width, height);
         }
+
         public override string ToString()
         {
-            //Using a format to all for the value to be a readable string
-            return currentLvl.ToString();
+            if (gameState == GameState.Complete)
+            {
+                return "Victory Player, You have successfully completed the game, Congradulations!";
+            }
+            else if (gameState == GameState.InProgress)
+            {
+                //Using a format to all for the value to be a readable string
+                return currentLvl.ToString();
+            }
+
+            return base.ToString() ?? "Default string value";//This is a default function that will supress the reference type warning and if the code returns a null, this is due to the gameover function being used later
         }
         private bool MoveHero(Level.Direction direction)
         {
-            // Cast the direction enum to an integer to use as an index for the vision array
+            CharacterTile characterTile = new; // Assume this represents the hero character
+
+            // Set the direction enum to an integer to use as an index for the vision array
             int directionIndex = (int)direction;
 
             // Check the target tile in the hero's vision array based on the desired direction
-            Tile targetTile = hero.charVision[directionIndex];
+            Tile targetTile = characterTile.charVision[directionIndex];
 
-            // Check if the target tile is an instance of EmptyTile
+            // Check if the target tile is an instance of the EmptyTile
             if (targetTile is EmptyTile)
             {
                 // Move is successful, return true
@@ -56,6 +69,37 @@ namespace GADE___1B___Part_1
                 // Move failed, return false
                 return false;
             }
+            if (targetTile is EmptyTile)
+            {
+                if (lvlNumbers == totalLvls)
+                {
+                    gameState = GameState.Complete;//This function that will end the game
+                    return false;//This function will function as the hero finished the game
+                }
+                else
+                {
+                    NextLevel();//Set the method if the levels are more within the game
+                    return true;//Return the fuunction as true so that the hero moves on to the next level
+                }
+            }
+        }
+        public enum GameState
+        {
+            //Assign values that will give the progression of the Player
+            InProgress,
+            Complete,
+            GameOver
+        }
+        public void NextLevel()
+        {
+            lvlNumbers++;//Increase the current level of the character by one
+
+            HeroTile heroTile = currentLvl.HeroTile;//Temporarily storing the next Level of the game 
+
+            int newLvlWidth = randomValue.Next(MIN_SIZE, MAX_SIZE);//Generate the new randomised width of the new level
+            int newLvlHeight = randomValue.Next(MIN_SIZE, MAX_SIZE);//Generate the new randomised height of the new level
+
+            currentLvl = new Level(newLvlWidth, newLvlHeight, heroTile);//Create a new Level, passing in the stored HeroTile
         }
     }
 }

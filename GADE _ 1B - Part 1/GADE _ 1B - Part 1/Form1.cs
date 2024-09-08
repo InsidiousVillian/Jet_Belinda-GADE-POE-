@@ -16,8 +16,6 @@ namespace GADE___1B___Part_1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int gameLvls = 10;
-            GameEngine gameEngine = new GameEngine(gameLvls);
 
         }
         public void UpdateDisplay()

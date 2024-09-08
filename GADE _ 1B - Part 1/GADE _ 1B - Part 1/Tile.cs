@@ -18,7 +18,7 @@ namespace GADE___1B___Part_1
         public abstract char Display { get; }
 
         //Set a constructor that accepts a parameter and assigns it tot the position class field
-        protected Tile(Position position)
+        public Tile(Position position)
         {
             //Assign the argument to the field
             this.position = position;
