@@ -13,6 +13,7 @@ namespace GADE___1B___Part_1
         public int _width { get; set; }//2D array of type Tile
         public int _height {  get; set; }//stores width
         public Tile[,] _tiles {  get; set; }//stores height
+        public HeroTile HeroTile { get; internal set; }
 
         private Random random = new Random();
         private HeroTile _hero; //stores hero 

@@ -48,27 +48,16 @@ namespace GADE___1B___Part_1
 
             return base.ToString() ?? "Default string value";//This is a default function that will supress the reference type warning and if the code returns a null, this is due to the gameover function being used later
         }
-        private bool MoveHero(Level.Direction direction)
+        private bool MoveHero(Level.Direction direction, CharacterTile characterTile)
         {
-            CharacterTile characterTile = new; // Assume this represents the hero character
+             // Assume this represents the hero character
 
             // Set the direction enum to an integer to use as an index for the vision array
             int directionIndex = (int)direction;
 
             // Check the target tile in the hero's vision array based on the desired direction
             Tile targetTile = characterTile.charVision[directionIndex];
-
-            // Check if the target tile is an instance of the EmptyTile
-            if (targetTile is EmptyTile)
-            {
-                // Move is successful, return true
-                return true;
-            }
-            else
-            {
-                // Move failed, return false
-                return false;
-            }
+            
             if (targetTile is EmptyTile)
             {
                 if (lvlNumbers == totalLvls)
@@ -81,6 +70,20 @@ namespace GADE___1B___Part_1
                     NextLevel();//Set the method if the levels are more within the game
                     return true;//Return the fuunction as true so that the hero moves on to the next level
                 }
+            }
+
+
+
+            // Check if the target tile is an instance of the EmptyTile
+            if (targetTile is EmptyTile)
+            {
+                // Move is successful, return true
+                return true;
+            }
+            else
+            {
+                // Move failed, return false
+                return false;
             }
         }
         public enum GameState
